@@ -6,147 +6,214 @@
   <title>MoroccoTour AI</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gradient-to-r from-blue-50 to-indigo-100 min-h-screen">
+<body class="bg-gradient-to-r from-blue-50 to-indigo-100 min-h-screen flex flex-col">
+
+  <!-- HEADER -->
   <header class="bg-white shadow">
     <div class="container mx-auto py-4 px-6">
-      <h1 class="text-2xl font-bold text-indigo-600">MoroccoTour AI</h1>
+      <h1 class="text-3xl font-bold text-indigo-600">🇲🇦 MoroccoTour AI</h1>
     </div>
   </header>
 
-  <main class="container mx-auto mt-6 p-4 grid grid-cols-1 lg:grid-cols-2 gap-6">
-    <!-- Chat -->
+  <!-- MAIN GRID -->
+  <main class="container mx-auto flex-1 mt-6 p-4 grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+    <!-- CHAT SECTION -->
     <section class="bg-white p-6 rounded-lg shadow-lg flex flex-col">
-      <h2 class="text-xl font-semibold mb-4">Ask the AI</h2>
-      <textarea id="chatInput" rows="4" class="border rounded p-2 mb-3 focus:outline-none focus:ring-2 focus:ring-indigo-300" placeholder="Type your question..."></textarea>
-      <button id="chatBtn" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition mb-4">Send</button>
-      <div id="chatResponse" class="flex-1 overflow-auto bg-gray-100 p-3 rounded text-gray-800"></div>
+      <h2 class="text-2xl font-semibold mb-4">Ask the AI</h2>
+      <textarea id="chatInput" rows="4" class="border rounded p-2 mb-3 focus:outline-none focus:ring-2 focus:ring-indigo-300" 
+                placeholder="Type your question..."></textarea>
+      <button id="chatBtn" class="bg-indigo-600 text-white font-medium px-4 py-2 rounded hover:bg-indigo-700 transition flex items-center justify-center">
+        <span>Send</span>
+      </button>
+      <div id="chatResponse" class="flex-1 mt-4 overflow-auto bg-gray-100 p-3 rounded text-gray-800 whitespace-pre-wrap"></div>
     </section>
 
-    <!-- Tools -->
+    <!-- TOOLS SECTION -->
     <section class="space-y-6">
-      <!-- Weather & Emergency -->
+
+      <!-- WEATHER & EMERGENCY -->
       <div class="bg-white p-6 rounded-lg shadow-lg">
-        <h2 class="text-xl font-semibold mb-4">Weather & Emergency</h2>
+        <h2 class="text-2xl font-semibold mb-4">Weather & Emergency</h2>
         <div class="flex gap-2 mb-3">
-          <input id="weatherCity" type="text" placeholder="City" class="flex-1 border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-300"/>
-          <button id="weatherBtn" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">Weather</button>
+          <input id="weatherCity" type="text" placeholder="City" 
+                 class="flex-1 border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-300"/>
+          <button id="weatherBtn" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center">
+            <span>Weather</span>
+          </button>
         </div>
-        <pre id="weatherResult" class="bg-gray-100 p-3 rounded overflow-auto"></pre>
-        <button id="emergencyBtn" class="mt-3 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">Show Emergency Numbers</button>
+        <pre id="weatherResult" class="bg-gray-100 p-3 rounded overflow-auto h-24"></pre>
+        <button id="emergencyBtn" class="mt-3 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition flex items-center">
+          <span>Show Emergency Numbers</span>
+        </button>
         <div id="emergencyResult" class="mt-2 text-gray-800"></div>
       </div>
 
-      <!-- Map -->
+      <!-- MAP PREVIEW -->
       <div class="bg-white p-6 rounded-lg shadow-lg">
-        <h2 class="text-xl font-semibold mb-4">Map Preview</h2>
+        <h2 class="text-2xl font-semibold mb-4">Map Preview</h2>
         <div class="flex gap-2 mb-3">
-          <input id="mapCity" type="text" placeholder="City" class="flex-1 border rounded p-2 focus:outline-none focus:ring-2 focus:ring-indigo-300"/>
-          <button id="mapBtn" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition">Generate Map</button>
+          <input id="mapCity" type="text" placeholder="City" 
+                 class="flex-1 border rounded p-2 focus:outline-none focus:ring-2 focus:ring-indigo-300"/>
+          <button id="mapBtn" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition flex items-center">
+            <span>Generate Map</span>
+          </button>
         </div>
         <div id="mapFrame" class="h-64 rounded overflow-hidden border"></div>
       </div>
 
-      <!-- Trip Planner -->
+      <!-- TRIP PLANNER -->
       <div class="bg-white p-6 rounded-lg shadow-lg">
-        <h2 class="text-xl font-semibold mb-4">Trip Planner</h2>
+        <h2 class="text-2xl font-semibold mb-4">Trip Planner</h2>
         <div class="space-y-2">
-          <input id="tripCity" type="text" placeholder="City" class="w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-indigo-300"/>
+          <input id="tripCity" type="text" placeholder="City" 
+                 class="w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-indigo-300"/>
           <div class="flex gap-2">
             <input id="startDate" type="date" class="flex-1 border rounded p-2"/>
-            <input id="endDate" type="date" class="flex-1 border rounded p-2"/>
+            <input id="endDate"   type="date" class="flex-1 border rounded p-2"/>
           </div>
-          <button id="tripBtn" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition">Plan Trip</button>
+          <button id="tripBtn" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition flex items-center">
+            <span>Plan Trip</span>
+          </button>
         </div>
-        <ul id="tripResult" class="mt-3 list-decimal pl-5 text-gray-800"></ul>
+        <ul id="tripResult" class="mt-3 list-decimal pl-5 text-gray-800 space-y-1"></ul>
       </div>
+
     </section>
   </main>
 
-  <footer class="text-center py-4 text-gray-600">&copy; 2025 MoroccoTour AI</footer>
+  <!-- FOOTER -->
+  <footer class="bg-white text-center py-4 text-gray-600">
+    &copy; 2025 MoroccoTour AI
+  </footer>
 
+  <!-- SCRIPTS -->
   <script>
-    const baseUrl = "https://54ee-34-135-199-85.ngrok-free.app";
+    const baseUrl = "https://cf9f-34-135-199-85.ngrok-free.app";
 
-    async function sendChat() {
+    // Utility to toggle loading spinner
+    function toggleLoading(button, isLoading) {
+      const spinner = '<div class="border-t-4 border-white border-solid rounded-full w-5 h-5 animate-spin mr-2"></div>';
+      if (isLoading) {
+        button.disabled = true;
+        button.innerHTML = spinner + button.innerText;
+      } else {
+        button.disabled = false;
+        button.innerHTML = button.innerText.replace(/<.*spinner.*>/, '').trim();
+      }
+    }
+
+    // CHAT
+    document.getElementById('chatBtn').onclick = async () => {
+      const btn = document.getElementById('chatBtn');
+      const out = document.getElementById('chatResponse');
+      out.textContent = '';
+      const msg = document.getElementById('chatInput').value.trim();
+      if (!msg) return out.textContent = '⚠️ Please type a question.';
+      toggleLoading(btn, true);
       try {
-        const input = document.getElementById('chatInput').value;
         const res = await fetch(`${baseUrl}/api/v1/chat`, {
           method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ message: input, user_id: 'user1', language: 'en' }),
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ message: msg, user_id: 'user1', language: 'en' })
         });
-        const data = await res.json();
-        document.getElementById('chatResponse').innerText = data.response;
-      } catch (err) {
-        document.getElementById('chatResponse').innerText = "❌ Could not reach the server.";
-        console.error(err);
+        const json = await res.json();
+        out.textContent = json.response;
+      } catch (e) {
+        out.textContent = '❌ Could not reach the server.';
+        console.error(e);
+      } finally {
+        toggleLoading(btn, false);
       }
-    }
+    };
 
-    async function getWeather() {
+    // WEATHER
+    document.getElementById('weatherBtn').onclick = async () => {
+      const btn = document.getElementById('weatherBtn');
+      const city = document.getElementById('weatherCity').value.trim();
+      const out = document.getElementById('weatherResult');
+      out.textContent = '';
+      if (!city) return out.textContent = '⚠️ Enter a city.';
+      toggleLoading(btn, true);
       try {
-        const city = document.getElementById('weatherCity').value;
         const res = await fetch(`${baseUrl}/api/v1/weather?city=${encodeURIComponent(city)}`);
-        const data = await res.json();
-        document.getElementById('weatherResult').innerText = JSON.stringify(data.current_weather, null, 2);
-      } catch (err) {
-        document.getElementById('weatherResult').innerText = "❌ Error fetching weather.";
-        console.error(err);
+        const json = await res.json();
+        out.textContent = JSON.stringify(json.current_weather, null, 2);
+      } catch (e) {
+        out.textContent = '❌ Error fetching weather.';
+        console.error(e);
+      } finally {
+        toggleLoading(btn, false);
       }
-    }
+    };
 
-    async function showEmergency() {
+    // EMERGENCY
+    document.getElementById('emergencyBtn').onclick = async () => {
+      const btn = document.getElementById('emergencyBtn');
+      const city = document.getElementById('weatherCity').value.trim() || 'Morocco';
+      const out = document.getElementById('emergencyResult');
+      out.innerHTML = '';
+      toggleLoading(btn, true);
       try {
-        const city = document.getElementById('weatherCity').value || 'Morocco';
         const res = await fetch(`${baseUrl}/api/v1/emergency?city=${encodeURIComponent(city)}`);
-        const data = await res.json();
-        document.getElementById('emergencyResult').innerHTML =
-          '<ul>' + Object.entries(data).map(([k,v]) => `<li><strong>${k}</strong>: ${v}</li>`).join('') + '</ul>';
-      } catch (err) {
-        document.getElementById('emergencyResult').innerText = "❌ Error fetching emergency info.";
-        console.error(err);
+        const json = await res.json();
+        out.innerHTML = '<ul>' + Object.entries(json)
+          .map(([k,v]) => `<li><strong>${k}:</strong> ${v}</li>`).join('') + '</ul>';
+      } catch (e) {
+        out.textContent = '❌ Error fetching emergency info.';
+        console.error(e);
+      } finally {
+        toggleLoading(btn, false);
       }
-    }
+    };
 
-    async function genMap() {
-      const city = document.getElementById('mapCity').value;
+    // MAP
+    document.getElementById('mapBtn').onclick = () => {
+      const city = document.getElementById('mapCity').value.trim();
       const frame = document.getElementById('mapFrame');
-      frame.innerHTML = `<iframe src="${baseUrl}/api/v1/map?city=${encodeURIComponent(city)}" class="w-full h-full border-0"></iframe>`;
-    }
+      if (!city) return frame.innerHTML = '⚠️ Enter a city.';
+      frame.innerHTML = `<iframe src="${baseUrl}/api/v1/map?city=${encodeURIComponent(city)}" 
+                            class="w-full h-full border-0"></iframe>`;
+    };
 
-    async function planTrip() {
+    // TRIP PLANNER
+    document.getElementById('tripBtn').onclick = async () => {
+      const btn = document.getElementById('tripBtn');
+      const city = document.getElementById('tripCity').value.trim();
+      const start = document.getElementById('startDate').value;
+      const end   = document.getElementById('endDate').value;
+      const list  = document.getElementById('tripResult');
+      list.innerHTML = '';
+      if (!city || !start || !end) {
+        return list.innerHTML = '<li>⚠️ Fill in all fields.</li>';
+      }
+      if (new Date(start) >= new Date(end)) {
+        return list.innerHTML = '<li>⚠️ End date must be after start date.</li>';
+      }
+      toggleLoading(btn, true);
       try {
-        const city = document.getElementById('tripCity').value;
-        const start = document.getElementById('startDate').value;
-        const end = document.getElementById('endDate').value;
         const res = await fetch(`${baseUrl}/api/v1/plan-trip`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers:{'Content-Type':'application/json'},
           body: JSON.stringify({
             city,
-            start_date: new Date(start).toISOString().split("T")[0],
-            end_date: new Date(end).toISOString().split("T")[0]
+            start_date: new Date(start).toISOString().split('T')[0],
+            end_date:   new Date(end).toISOString().split('T')[0]
           })
         });
-        const data = await res.json();
-        const list = document.getElementById('tripResult');
-        list.innerHTML = '';
-        data.plan.forEach(item => {
+        const json = await res.json();
+        json.plan.forEach(day => {
           const li = document.createElement('li');
-          li.textContent = item;
+          li.textContent = day;
           list.appendChild(li);
         });
-      } catch (err) {
-        document.getElementById('tripResult').innerHTML = "<li>❌ Error fetching trip plan.</li>";
-        console.error(err);
+      } catch (e) {
+        list.innerHTML = '<li>❌ Error fetching trip plan.</li>';
+        console.error(e);
+      } finally {
+        toggleLoading(btn, false);
       }
-    }
-
-    document.getElementById('chatBtn').addEventListener('click', sendChat);
-    document.getElementById('weatherBtn').addEventListener('click', getWeather);
-    document.getElementById('emergencyBtn').addEventListener('click', showEmergency);
-    document.getElementById('mapBtn').addEventListener('click', genMap);
-    document.getElementById('tripBtn').addEventListener('click', planTrip);
+    };
   </script>
 </body>
 </html>
