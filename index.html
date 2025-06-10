@@ -59,10 +59,7 @@
   </main>
   <footer class="text-center py-4 text-gray-600">&copy; 2025 MoroccoTour AI</footer>
   <script>
-    const baseUrl = window.location.hostname.includes('localhost') 
-      ? 'http://localhost:8000'
-      : 'https://d672-34-135-199-85.ngrok-free.app';
-
+  const baseUrl = 'https://d672-34-135-199-85.ngrok-free.app';
     async function sendChat() {
       const input = document.getElementById('chatInput').value;
       const res = await fetch(`${baseUrl}/api/v1/chat`, {
