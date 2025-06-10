@@ -1,149 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MoroccoTour AI</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
+<!DOCTYPE html><html lang="en">
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MoroccoTour AI</title><script src="https://cdn.tailwindcss.com"></script></head>
 <body class="bg-gradient-to-r from-blue-50 to-indigo-100 min-h-screen flex flex-col">
-  <header class="bg-white shadow">
-    <div class="container mx-auto py-4 px-6">
-      <h1 class="text-3xl font-bold text-indigo-600">🇲🇦 MoroccoTour AI 2 </h1>
+
+<header class="bg-white shadow"><div class="container mx-auto py-4 px-6">
+  <h1 class="text-3xl font-bold text-indigo-600">🇲🇦 MoroccoTour AI</h1></div></header>
+
+<main class="container mx-auto flex-1 mt-6 p-4 grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+<!-- CHAT -->
+<section class="bg-white p-6 rounded-lg shadow flex flex-col">
+  <h2 class="text-2xl font-semibold mb-4">Ask the AI</h2>
+  <textarea id="chatInput" rows="3" class="border rounded p-2 mb-3" placeholder="Type your question..."></textarea>
+  <button id="chatBtn" class="bg-indigo-600 text-white px-4 py-2 rounded">Send</button>
+  <pre id="chatResponse" class="flex-1 mt-3 bg-gray-100 p-3 rounded overflow-auto"></pre>
+</section>
+
+<!-- TOOLS -->
+<section class="space-y-6">
+
+  <!-- WEATHER -->
+  <div class="bg-white p-6 rounded-lg shadow">
+    <h2 class="text-2xl font-semibold mb-4">Weather & Emergency</h2>
+    <div class="flex gap-2 mb-2">
+      <input id="weatherCity" type="text" placeholder="City" class="flex-1 border rounded p-2"/>
+      <button id="weatherBtn" class="bg-green-600 text-white px-4 py-2 rounded">Weather</button>
     </div>
-  </header>
+    <pre id="weatherResult" class="bg-gray-100 p-3 rounded h-24 overflow-auto"></pre>
+    <button id="emergencyBtn" class="mt-2 bg-red-600 text-white px-4 py-2 rounded">Emergency</button>
+    <div id="emergencyResult" class="text-gray-800 mt-2"></div>
+  </div>
 
-  <!-- MAIN -->
-  <main class="container mx-auto flex-1 mt-6 p-4 grid grid-cols-1 lg:grid-cols-2 gap-6">
+  <!-- MAP -->
+  <div class="bg-white p-6 rounded-lg shadow">
+    <h2 class="text-2xl font-semibold mb-4">Map Preview</h2>
+    <div class="flex gap-2 mb-2">
+      <input id="mapCity" type="text" placeholder="City" class="flex-1 border rounded p-2"/>
+      <button id="mapBtn" class="bg-purple-600 text-white px-4 py-2 rounded">Map</button>
+    </div>
+    <div id="mapFrame" class="h-64 border rounded overflow-hidden"></div>
+  </div>
 
-    <!-- CHAT -->
-    <section class="bg-white p-6 rounded-lg shadow flex flex-col">
-      <h2 class="text-2xl font-semibold mb-4">Ask the AI</h2>
-      <textarea id="chatInput" rows="3" class="border rounded p-2 mb-3 focus:ring-indigo-300"
-                placeholder="Type your question..."></textarea>
-      <button id="chatBtn" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition">
-        Send
-      </button>
-      <div id="chatResponse" class="flex-1 mt-4 p-3 bg-gray-100 rounded whitespace-pre-wrap overflow-auto"></div>
-    </section>
+  <!-- TRIP -->
+  <div class="bg-white p-6 rounded-lg shadow">
+    <h2 class="text-2xl font-semibold mb-4">Trip Planner</h2>
+    <input id="tripCity" type="text" placeholder="City" class="w-full p-2 border rounded mb-2"/>
+    <div class="flex gap-2 mb-2">
+      <input id="startDate" type="date" class="flex-1 p-2 border rounded"/>
+      <input id="endDate"   type="date" class="flex-1 p-2 border rounded"/>
+    </div>
+    <button id="tripBtn" class="bg-yellow-500 text-white px-4 py-2 rounded">Plan</button>
+    <ul id="tripResult" class="list-decimal pl-5 mt-3"></ul>
+  </div>
 
-    <!-- TOOLS -->
-    <section class="space-y-6">
+</section></main><footer class="bg-white text-center py-4">&copy; 2025</footer>
 
-      <!-- WEATHER -->
-      <div class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-2xl font-semibold mb-4">Weather & Emergency</h2>
-        <div class="flex gap-2 mb-3">
-          <input id="weatherCity" type="text" placeholder="City"
-                 class="flex-1 border rounded p-2 focus:ring-blue-300"/>
-          <button id="weatherBtn" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Weather</button>
-        </div>
-        <pre id="weatherResult" class="bg-gray-100 p-3 rounded h-24 overflow-auto"></pre>
-        <button id="emergencyBtn" class="mt-2 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
-          Emergency Numbers
-        </button>
-        <div id="emergencyResult" class="mt-2 text-gray-800"></div>
-      </div>
+<script>
+const baseUrl="https://f37b-34-135-199-85.ngrok-free.app"; // <<— Update if tunnel changes
+const $=id=>document.getElementById(id);
 
-      <!-- MAP -->
-      <div class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-2xl font-semibold mb-4">Map Preview</h2>
-        <div class="flex gap-2 mb-3">
-          <input id="mapCity" type="text" placeholder="City"
-                 class="flex-1 border rounded p-2 focus:ring-indigo-300"/>
-          <button id="mapBtn" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">Generate</button>
-        </div>
-        <div id="mapFrame" class="h-64 border rounded overflow-hidden"></div>
-      </div>
+// CHAT
+$('chatBtn').onclick=async()=>{
+  const msg=$('chatInput').value.trim(); $('chatResponse').textContent='';
+  if(!msg) return $('chatResponse').textContent='⚠️ Type something';
+  try{
+    const j=await fetch(baseUrl+'/api/v1/chat',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({message:msg,user_id:'web',language:'en'})}).then(r=>r.json());
+    $('chatResponse').textContent=j.response||'❌ Error';
+  }catch(e){$('chatResponse').textContent='❌ Network';}
+};
 
-      <!-- TRIP -->
-      <div class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-2xl font-semibold mb-4">Trip Planner</h2>
-        <input id="tripCity" type="text" placeholder="City" class="w-full p-2 border rounded mb-2"/>
-        <div class="flex gap-2 mb-2">
-          <input id="startDate" type="date" class="flex-1 p-2 border rounded"/>
-          <input id="endDate"   type="date" class="flex-1 p-2 border rounded"/>
-        </div>
-        <button id="tripBtn" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">Plan</button>
-        <ul id="tripResult" class="mt-3 list-decimal pl-5 text-gray-800 space-y-1"></ul>
-      </div>
+// WEATHER
+$('weatherBtn').onclick=async()=>{
+  const city=$('weatherCity').value.trim(); $('weatherResult').textContent='';
+  if(!city) return $('weatherResult').textContent='⚠️ Enter city';
+  try{
+    const j=await fetch(`${baseUrl}/api/v1/weather?city=${encodeURIComponent(city)}`).then(r=>r.json());
+    $('weatherResult').textContent=JSON.stringify(j.current_weather||j,null,2);
+  }catch{ $('weatherResult').textContent='❌'; }
+};
 
-    </section>
-  </main>
+// EMERGENCY
+$('emergencyBtn').onclick=async()=>{
+  const city=$('weatherCity').value.trim()||'Morocco';
+  try{
+    const j=await fetch(`${baseUrl}/api/v1/emergency?city=${encodeURIComponent(city)}`).then(r=>r.json());
+    $('emergencyResult').innerHTML='<ul>'+Object.entries(j).map(([k,v])=>`<li><b>${k}:</b> ${v}</li>`).join('')+'</ul>';
+  }catch{ $('emergencyResult').textContent='❌'; }
+};
 
-  <footer class="bg-white text-center text-gray-500 py-4">&copy; 2025 MoroccoTour AI</footer>
+// MAP
+$('mapBtn').onclick=()=>{
+  const city=$('mapCity').value.trim();
+  $('mapFrame').innerHTML= city ? `<iframe class="w-full h-full" src="${baseUrl}/api/v1/map?city=${encodeURIComponent(city)}"></iframe>`
+                                 : '⚠️ Enter city';
+};
 
-  <script>
-    // ********** EDIT THIS LINE IF NGROK URL CHANGES **********
-    const baseUrl = "https://3fcc-34-135-199-85.ngrok-free.app";
-
-    // -- utilities
-    const $ = id => document.getElementById(id);
-    const spinner = '<svg class="animate-spin h-5 w-5 mr-2 text-white" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"/></svg>';
-    const wrapBtn = (btn, loading=true) => {
-      btn.disabled = loading;
-      btn.innerHTML = loading ? spinner + btn.textContent.trim() : btn.textContent.trim();
-    };
-
-    // CHAT
-    $('chatBtn').onclick = async () => {
-      const btn=$('chatBtn'), out=$('chatResponse'), q=$('chatInput').value.trim();
-      if(!q) return out.textContent='⚠️ Type something!';
-      out.textContent=''; wrapBtn(btn,true);
-      try{
-        const r=await fetch(baseUrl+'/api/v1/chat',{
-          method:'POST',headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({message:q,user_id:'web',language:'en'})
-        });
-        const j=await r.json(); out.textContent=j.response||'❌ Unexpected.';
-      }catch(e){ out.textContent='❌ Network error.'; console.error(e);}
-      wrapBtn(btn,false);
-    };
-
-    // WEATHER
-    $('weatherBtn').onclick = async ()=>{
-      const btn=$('weatherBtn'),city=$('weatherCity').value.trim(),out=$('weatherResult');
-      if(!city) return out.textContent='⚠️ Enter a city.';
-      out.textContent=''; wrapBtn(btn,true);
-      try{
-        const r=await fetch(`${baseUrl}/api/v1/weather?city=${encodeURIComponent(city)}`);
-        const j=await r.json(); out.textContent=JSON.stringify(j.current_weather,null,2);
-      }catch(e){ out.textContent='❌ Weather error.'; }
-      wrapBtn(btn,false);
-    };
-
-    // EMERGENCY
-    $('emergencyBtn').onclick = async ()=>{
-      const btn=$('emergencyBtn'),city=$('weatherCity').value.trim()||'Morocco',out=$('emergencyResult');
-      out.innerHTML=''; wrapBtn(btn,true);
-      try{
-        const j=await fetch(`${baseUrl}/api/v1/emergency?city=${encodeURIComponent(city)}`).then(r=>r.json());
-        out.innerHTML='<ul>'+Object.entries(j).map(([k,v])=>`<li><strong>${k}:</strong> ${v}</li>`).join('')+'</ul>';
-      }catch{ out.textContent='❌ Emergency error.'; }
-      wrapBtn(btn,false);
-    };
-
-    // MAP
-    $('mapBtn').onclick=()=>{
-      const city=$('mapCity').value.trim(),frame=$('mapFrame');
-      if(!city) return frame.textContent='⚠️ Enter a city.';
-      frame.innerHTML=`<iframe class="w-full h-full" src="${baseUrl}/api/v1/map?city=${encodeURIComponent(city)}"></iframe>`;
-    };
-
-    // TRIP
-    $('tripBtn').onclick=async()=>{
-      const btn=$('tripBtn'),city=$('tripCity').value.trim(),s=$('startDate').value,e=$('endDate').value,list=$('tripResult');
-      list.innerHTML='';
-      if(!city||!s||!e) return list.innerHTML='<li>⚠️ Fill all fields.</li>';
-      if(new Date(s)>=new Date(e)) return list.innerHTML='<li>⚠️ End date must be after start.</li>';
-      wrapBtn(btn,true);
-      try{
-        const j=await fetch(baseUrl+'/api/v1/plan-trip',{method:'POST',headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({city,start_date:s,end_date:e})}).then(r=>r.json());
-        j.plan.forEach(d=>{const li=document.createElement('li');li.textContent=d;list.appendChild(li);});
-      }catch{list.innerHTML='<li>❌ Trip error.</li>';}
-      wrapBtn(btn,false);
-    };
-  </script>
-</body>
-</html>
+// TRIP
+$('tripBtn').onclick=async()=>{
+  const city=$('tripCity').value.trim(), s=$('startDate').value, e=$('endDate').value, ul=$('tripResult'); ul.innerHTML='';
+  if(!city||!s||!e) return ul.innerHTML='<li>⚠️ Fill all fields</li>';
+  if(new Date(s)>=new Date(e)) return ul.innerHTML='<li>⚠️ End date must be after start</li>';
+  try{
+    const j=await fetch(baseUrl+'/api/v1/plan-trip',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({city,start_date:s,end_date:e})}).then(r=>r.json());
+    j.plan.forEach(d=>{const li=document.createElement('li'); li.textContent=d; ul.appendChild(li);});
+  }catch{ ul.innerHTML='<li>❌ Trip error</li>'; }
+};
+</script></body></html>
